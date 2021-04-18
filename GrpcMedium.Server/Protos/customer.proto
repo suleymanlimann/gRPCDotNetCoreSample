@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "GrpcMedium.Server";
+
+package customerV1;
+
+service Customer {
+  rpc GetCustomerUnary (CustomerRequest) returns (CustomerResponse); 
+  rpc GetCustomerServerStream(google.protobuf.Empty) returns (stream CustomerResponse); 
+  rpc GetCustomersClientStream(stream CustomerRequest) returns (CustomersResponse);  
+  rpc GetCustomersBiDirectionalStream(stream CustomerRequest) returns (stream CustomerResponse); 
+}
+
+message CustomerRequest {
+	int32 customerId=1;
+}
+
+message CustomerResponse {
+
+	int32 Id=1;
+	string name=2;
+	int32 age=3;
+	string email=4;
+	string adress=5;
+	bool isActive=6;
+}
+
+message CustomersResponse{
+repeated CustomerResponse customer=1;
+}
